@@ -10,7 +10,11 @@ class MyPlugin(BasePlugin):
     # 插件加载时触发
     def __init__(self, host: APIHost):
         pass
-
+    # 插件加载时触发
+    # plugin_host (pkg.plugin.host.PluginHost) 提供了与主程序交互的一些方法，详细请查看其源码
+    def __init__(self, plugin_host: PluginHost):
+        pass
+        
     # 异步初始化
     async def initialize(self):
         pass
