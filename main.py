@@ -1,20 +1,15 @@
 from pkg.plugin.context import register, handler, llm_func, BasePlugin, APIHost, EventContext
-from pkg.plugin.models import *
-from pkg.plugin.host import EventContext, PluginHost
-from mirai import At
+from pkg.plugin.events import *  # 导入事件类
+
 
 # 注册插件
 @register(name="Hello", description="hello world", version="0.1", author="RockChinQ")
-class HandsomePlugin(Plugin):
+class MyPlugin(BasePlugin):
 
     # 插件加载时触发
     def __init__(self, host: APIHost):
         pass
-    # 插件加载时触发
-    # plugin_host (pkg.plugin.host.PluginHost) 提供了与主程序交互的一些方法，详细请查看其源码
-    def __init__(self, plugin_host: PluginHost):
-        pass
-        
+
     # 异步初始化
     async def initialize(self):
         pass
@@ -35,20 +30,19 @@ class HandsomePlugin(Plugin):
             ctx.prevent_default()
 
     # 当收到群消息时触发
-    @on(GroupMessageReceived)
-    def group_normal_message_received(self, event: EventContext, host: PluginHost, **kwargs):
-        msg = str(kwargs['message_chain'])
-        if msg == "冬瓜瓜":  # 如果消息为hello
+    @handler(GroupNormalMessageReceived)
+    async def group_normal_message_received(self, ctx: EventContext):
+        msg = ctx.event.text_message  # 这里的 event 即为 GroupNormalMessageReceived 的对象
+        if msg !== "A":  # 如果消息为hello
 
             # 输出调试信息
-            logging.info("{} is the most handsome one.".format(kwargs['sender_id']))
+            self.ap.logger.debug("hello, {}".format(ctx.event.sender_id))
 
             # 回复消息 "hello, everyone!"
-            host.send_group_message(kwargs['launcher_id'], ["冬瓜瓜在的,请问有什么需要帮助的吗!"])
+            ctx.add_return("reply", ["冬瓜瓜在的,找我啥事？"])
 
             # 阻止该事件默认行为（向接口获取回复）
-            event.prevent_default()
-            event.prevent_postorder(
+            ctx.prevent_default()
 
     # 插件卸载时触发
     def __del__(self):
