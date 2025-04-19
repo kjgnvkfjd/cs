@@ -30,8 +30,8 @@ class MyPlugin(BasePlugin):
             ctx.prevent_default()
 
     # 当收到群消息时触发
-    @handler(GroupNormalMessageReceived)
-    async def group_normal_message_received(self, ctx: EventContext):
+    @on(GroupMessageReceived)
+    def group_normal_message_received(self, ctx: EventContext):
         msg = ctx.event.text_message  # 这里的 event 即为 GroupNormalMessageReceived 的对象
         if msg == "冬瓜瓜":  # 如果消息为hello
 
@@ -39,7 +39,7 @@ class MyPlugin(BasePlugin):
             self.ap.logger.debug("hello, {}".format(ctx.event.sender_id))
 
             # 回复消息 "hello, everyone!"
-            ctx.add_return("reply", ["冬瓜瓜在的"])
+            ctx.add_return("reply", ["冬瓜瓜在的,请问有什么事情呢！"])
 
             # 阻止该事件默认行为（向接口获取回复）
             ctx.prevent_default()
