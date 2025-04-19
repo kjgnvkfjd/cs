@@ -37,7 +37,7 @@ class MyPlugin(BasePlugin):
     # 当收到群消息时触发
     @on(GroupMessageReceived)
     def group_normal_message_received(self, event: EventContext, host: PluginHost, **kwargs):
-        mmsg = str(kwargs['message_chain'])
+        msg = str(kwargs['message_chain'])
         if msg == "冬瓜瓜":  # 如果消息为hello
 
             # 输出调试信息
