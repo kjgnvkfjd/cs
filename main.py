@@ -5,7 +5,7 @@ from mirai import At
 
 # 注册插件
 @register(name="Hello", description="hello world", version="0.1", author="RockChinQ")
-class MyPlugin(BasePlugin):
+class HandsomePlugin(Plugin):
 
     # 插件加载时触发
     def __init__(self, host: APIHost):
