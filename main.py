@@ -1,6 +1,7 @@
 from pkg.plugin.context import register, handler, llm_func, BasePlugin, APIHost, EventContext
-from pkg.plugin.events import *  # 导入事件类
-
+from pkg.plugin.models import *
+from pkg.plugin.host import EventContext, PluginHost
+from mirai import At
 
 # 注册插件
 @register(name="Hello", description="hello world", version="0.1", author="RockChinQ")
