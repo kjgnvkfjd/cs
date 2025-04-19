@@ -41,13 +41,14 @@ class HandsomePlugin(Plugin):
         if msg == "冬瓜瓜":  # 如果消息为hello
 
             # 输出调试信息
-            self.ap.logger.debug("hello, {}".format(ctx.event.sender_id))
+            logging.info("{} is the most handsome one.".format(kwargs['sender_id']))
 
             # 回复消息 "hello, everyone!"
-            ctx.add_return("reply", ["冬瓜瓜在的,请问有什么事情呢！"])
+            host.send_group_message(kwargs['launcher_id'], ["冬瓜瓜在的,请问有什么需要帮助的吗!"])
 
             # 阻止该事件默认行为（向接口获取回复）
-            ctx.prevent_default()
+            event.prevent_default()
+            event.prevent_postorder(
 
     # 插件卸载时触发
     def __del__(self):
